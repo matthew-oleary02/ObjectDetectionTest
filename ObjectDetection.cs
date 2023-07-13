@@ -15,10 +15,11 @@ namespace CustomVision
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Threading.Tasks; //moved out of #if !UNITY_EDITOR tag
 #if !UNITY_EDITOR
     using System.Runtime.InteropServices.WindowsRuntime;
     using System.Text;
-    using System.Threading.Tasks;
+    //using System.Threading.Tasks;
     using Windows.AI.MachineLearning;
     using Windows.Foundation;
     using Windows.Foundation.Collections;
@@ -286,6 +287,8 @@ namespace CustomVision
             return this.SuppressNonMaximum(extractedBoxes.Boxes, extractedBoxes.Probabilities); //changed line like described in Round 2
         }
 #endif
+
+#if !UNITY_EDITOR //added tag here
         private async Task<SoftwareBitmap> ResizeBitmap(SoftwareBitmap softwareBitmap, int targetWidth, int targetHeight)
         {
             using (IRandomAccessStream stream = new InMemoryRandomAccessStream())
@@ -309,4 +312,6 @@ namespace CustomVision
                 return result;
             }
         }
+#endif //added tag here
     }
+}
